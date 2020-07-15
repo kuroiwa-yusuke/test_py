@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+    app_py:
+        build:
+            context: .
+            dockerfile: "dockerfile"
+        stdin_open: true
+        command: python system/main.py
+        image: images/app_py:latest
+        container_name: "app_py"
+        tty: true
+        ports:
+            - "5000:5000"
+        networks:
+            - defnet
+        volumes:
+            - ./system:/app/system
+            - python-packages:/root/.local/share
+volumes:
+    python-packages:
+networks:
+    defnet:
+        external: true
